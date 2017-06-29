@@ -1,11 +1,17 @@
 package com.example.vishal.newsapp;
 
 import android.net.Uri;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -14,7 +20,6 @@ import java.util.Scanner;
 
 
 public class NetworkUtils {
-
 
     private static final String NEWSAPP_BASE_URL = " https://newsapi.org/v1/articles";
     private static final String SOURCE_PARAM = "source";
@@ -25,7 +30,6 @@ public class NetworkUtils {
     protected static final String API_KEY= "ea3302f96d0f4831bf9909fb87bc4966";
 
     protected static URL makeURL(){
-
 
         Uri uri = Uri.parse(NEWSAPP_BASE_URL).buildUpon()
 
@@ -45,10 +49,30 @@ public class NetworkUtils {
     }
 
 
-//    protected String parseJSON() {
-//
-//        return null ;
-//    }
+    public static ArrayList<NewsItem> parseJSON(String json) throws JSONException {
+
+        ArrayList<NewsItem> newsList = new ArrayList<NewsItem>();
+        JSONObject jobj = new JSONObject(json);
+        JSONArray jsonArray = jobj.getJSONArray("articles");
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+
+            JSONObject mainObject = jsonArray.getJSONObject(i);
+
+            String author = mainObject.getString("author");
+            String description = mainObject.getString("description");
+            String published = mainObject.getString("publishedAt");
+            String title = mainObject.getString("title");
+            String url = mainObject.getString("url");
+            String urlToImage = mainObject.getString("urlToImage");
+
+            NewsItem newsdata = new NewsItem(author, title, description, url, urlToImage, published);
+            newsList.add(newsdata);
+
+        }
+
+        return newsList;
+    }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException{
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
@@ -63,5 +87,4 @@ public class NetworkUtils {
             urlConnection.disconnect();
         }
     }
-
 }

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 
 public class NewsItem {
 
-
     private String author;
     private String title;
     private String description;

@@ -15,9 +15,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -64,7 +62,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int isclicked = item.getItemId();
-        if(isclicked == R.id.action_search){
+
+        if(isclicked == R.id.action_search)
+        {
             recyclerView.setAdapter(null);
             fetchURL();
             return true;
@@ -86,49 +86,37 @@ public class MainActivity extends AppCompatActivity {
         protected void onPreExecute() {
             super.onPreExecute();
             loading.setVisibility(View.VISIBLE);
-
         }
 
         @Override
         protected ArrayList<NewsItem> doInBackground(URL... urls) {
+
+            URL url = NetworkUtils.makeURL();
+
             try {
-                String data = NetworkUtils.getResponseFromHttpUrl(urls[0]);
-
-                JSONObject jobj = new JSONObject(data);
-                JSONArray jsonArray = jobj.getJSONArray("articles");
-
-                for (int i = 0; i < jsonArray.length(); i++) {
-
-                    JSONObject mainObject = jsonArray.getJSONObject(i);
-
-                    String author = mainObject.getString("author");
-                    String description = mainObject.getString("description");
-                    String published = mainObject.getString("publishedAt");
-                    String title = mainObject.getString("title");
-                    String url = mainObject.getString("url");
-                    String urlToImage = mainObject.getString("urlToImage");
-
-                    newsList.add(new NewsItem(author, title, description, url, urlToImage, published));
-
-                }
-
-            } catch (IOException e) {
+                String json = NetworkUtils.getResponseFromHttpUrl(url);
+                newsList = NetworkUtils.parseJSON(json);
+            }
+            catch (IOException e) {
                 e.printStackTrace();
-            } catch (JSONException e) {
+            }
+            catch (JSONException e) {
                 e.printStackTrace();
             }
             return newsList;
         }
+
 
             @Override
 
             protected void onPostExecute(final ArrayList<NewsItem> newsArrayList){
 
                 loading.setVisibility(View.GONE);
-
                 super.onPostExecute(newsArrayList);
                 adapter.notifyDataSetChanged();
-                if (newsArrayList != null) {
+
+                if (newsArrayList != null)
+                {
 
                     NewsAdapter adapter = new NewsAdapter(newsArrayList, new NewsAdapter.ItemClickListener() {
                         @Override
@@ -146,7 +134,8 @@ public class MainActivity extends AppCompatActivity {
         public void openWebPage(String url) {
             Uri webpage = Uri.parse(url);
             Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
-            if (intent.resolveActivity(getPackageManager()) != null) {
+            if (intent.resolveActivity(getPackageManager()) != null)
+            {
                 startActivity(intent);
             }
         }
