@@ -24,7 +24,7 @@ public class NetworkUtils {
     private static final String sortBy = "latest";
     protected static final String API_KEY= "ea3302f96d0f4831bf9909fb87bc4966";
 
-     protected static URL makeURL(){
+    protected static URL makeURL(){
 
 
         Uri uri = Uri.parse(NEWSAPP_BASE_URL).buildUpon()
@@ -43,6 +43,12 @@ public class NetworkUtils {
 
         return url;
     }
+
+
+//    protected String parseJSON() {
+//
+//        return null ;
+//    }
 
     public static String getResponseFromHttpUrl(URL url) throws IOException{
         HttpURLConnection urlConnection = (HttpURLConnection)url.openConnection();
