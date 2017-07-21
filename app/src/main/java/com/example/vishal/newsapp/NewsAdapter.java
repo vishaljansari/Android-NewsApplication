@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.vishal.newsapp.Database.NewsItem;
+
 import java.util.ArrayList;
 
 

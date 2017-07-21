@@ -2,6 +2,8 @@ package com.example.vishal.newsapp;
 
 import android.net.Uri;
 
+import com.example.vishal.newsapp.Database.NewsItem;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;

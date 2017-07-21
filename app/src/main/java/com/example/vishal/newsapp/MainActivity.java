@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.example.vishal.newsapp.Database.NewsItem;
 import com.yqritc.recyclerviewflexibledivider.HorizontalDividerItemDecoration;
 import org.json.JSONException;
 import java.io.IOException;
@@ -21,7 +23,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-
 
     private static final String TAG ="MainActivity" ;
     public ArrayList<NewsItem> newsList;
@@ -105,7 +106,6 @@ public class MainActivity extends AppCompatActivity {
             }
             return newsList;
         }
-
 
             @Override
 
