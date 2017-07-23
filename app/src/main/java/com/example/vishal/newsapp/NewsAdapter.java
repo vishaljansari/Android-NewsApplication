@@ -59,7 +59,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemHolder> {
         holder.newsTitle.setText("TITLE: " +newsItem.getTitle());
         holder.newsDescription.setText("DESCRIPTION: " +newsItem.getDescription());
         holder.newsPublishedAt.setText("PUBLISHED AT: " +newsItem.getPublishedAt());
-
     }
 
     @Override
@@ -97,4 +96,3 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemHolder> {
         notifyDataSetChanged();
     }
 }
-

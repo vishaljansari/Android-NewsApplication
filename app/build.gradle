@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 25
+    compileSdkVersion 26
     buildToolsVersion "25.0.3"
     defaultConfig {
         applicationId "com.example.vishal.newsapp"
@@ -30,4 +30,10 @@ dependencies {
     compile 'com.android.support:recyclerview-v7:26.0.0-alpha1'
     compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
     compile 'com.yqritc:recyclerview-flexibledivider:1.4.0'
+
+    // ADDED FIREBASE'S JOB DISPATCHER FOR DEPENDANCY.
+    compile 'com.firebase:firebase-jobdispatcher:0.7.0'
+
+    //ADDED PICASSO DEPENDANCY TO LOAD THE THUMBNAIL.
+    compile 'com.squareup.picasso:picasso:2.5.2'
 }

@@ -108,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
             @Override
-
             protected void onPostExecute(final ArrayList<NewsItem> newsArrayList){
 
                 loading.setVisibility(View.GONE);

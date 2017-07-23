@@ -70,7 +70,6 @@ public class NetworkUtils {
 
             NewsItem newsdata = new NewsItem(author, title, description, url, urlToImage, published);
             newsList.add(newsdata);
-
         }
 
         return newsList;
