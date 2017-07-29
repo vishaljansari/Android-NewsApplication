@@ -11,10 +11,11 @@ import android.util.Log;
 
 public class DataBaseHelper extends SQLiteOpenHelper {
 
+// CREATED DATABASE QUERY TO CREATE TABLE
 
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "vishaljansarinewsitems.db";
-    private static final String TAG = "dbhelper";
+    private static final String TAG = "NewsDBHelper";
 
     public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -24,18 +25,16 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
 
         String queryString = "CREATE TABLE " + Contract.TABLE_NEWSFEED.TABLE_NAME + " (" +
-                             Contract.TABLE_NEWSFEED._ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
-                             Contract.TABLE_NEWSFEED.COLUMN_AUTHOR + " TEXT NOT NULL, " +
-                             Contract.TABLE_NEWSFEED.COLUMN_TITLE + " TEXT NOT NULL, " +
-                             Contract.TABLE_NEWSFEED.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
-                             Contract.TABLE_NEWSFEED.COLUMN_URL + " TEXT NOT NULL, " +
-                             Contract.TABLE_NEWSFEED.COLUMN_URL_TO_IMAGE + " TEXT NOT NULL, " +
-                             Contract.TABLE_NEWSFEED.COLUMN_PUBLISHED_AT + " DATE );";
-
+                             Contract.TABLE_NEWSFEED.COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                             Contract.TABLE_NEWSFEED.COLUMN_AUTHOR + " TEXT , " +
+                             Contract.TABLE_NEWSFEED.COLUMN_TITLE + " TEXT , " +
+                             Contract.TABLE_NEWSFEED.COLUMN_DESCRIPTION + " TEXT , " +
+                             Contract.TABLE_NEWSFEED.COLUMN_URL + " TEXT , " +
+                             Contract.TABLE_NEWSFEED.COLUMN_URL_TO_IMAGE + " TEXT  , " +
+                             Contract.TABLE_NEWSFEED.COLUMN_PUBLISHED_AT + " TEXT );";
 
         Log.d(TAG, "Create table SQL: " + queryString);
-   //     db.execSQL(queryString);
-
+        db.execSQL(queryString);
     }
 
     @Override
@@ -44,4 +43,6 @@ public class DataBaseHelper extends SQLiteOpenHelper {
         // db.execSQL("drop table " + Contract.TABLE_TODO.TABLE_NAME + " if exists;");
 
     }
+
+
 }

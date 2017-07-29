@@ -7,7 +7,6 @@ import com.example.vishal.newsapp.Database.NewsItem;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -16,12 +15,15 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+
 /**
  * Created by VISHAL on 6/14/2017.
  */
 
 
 public class NetworkUtils {
+
+    //APPEND QUERY PARAMETERS TO BUILD THE URL
 
     private static final String NEWSAPP_BASE_URL = " https://newsapi.org/v1/articles";
     private static final String SOURCE_PARAM = "source";
@@ -31,6 +33,7 @@ public class NetworkUtils {
     private static final String sortBy = "latest";
     protected static final String API_KEY= "ea3302f96d0f4831bf9909fb87bc4966";
 
+    // CREATED METHOD TO BUILD THE NEWS API URL
     protected static URL makeURL(){
 
         Uri uri = Uri.parse(NEWSAPP_BASE_URL).buildUpon()
@@ -50,6 +53,7 @@ public class NetworkUtils {
         return url;
     }
 
+    // PARSE THE JSON DATA OF THE NEWS API  AND SAVED IN ARRAYLIST FOR FURTHER USE.
 
     public static ArrayList<NewsItem> parseJSON(String json) throws JSONException {
 

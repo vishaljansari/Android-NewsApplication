@@ -1,32 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:card_view="http://schemas.android.com/apk/res-auto"
-              xmlns:tools="http://schemas.android.com/tools"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:orientation="vertical">
-
-
-    <TextView
-        android:id="@+id/newsTitle"
-        style="@style/TextAppearance.AppCompat.Small"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginBottom="10dp">
+<!--Added CardView for better UI-->
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="57dp"
-        android:background="?android:attr/selectableItemBackground" />
+        android:layout_height="wrap_content"
+        android:paddingTop="10dp"
+        android:paddingRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingBottom="10dp"
+        android:backgroundTint="#FFFFFF">
 
-    <TextView
-        android:id="@+id/newsDescription"
-        android:layout_width="match_parent"
-        android:layout_height="117dp"
-        android:textSize="15sp"
-        android:background="?android:attr/selectableItemBackground"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="457dp">
 
-    <TextView
-        android:id="@+id/newsPublishedAt"
-        android:layout_width="match_parent"
-        android:layout_height="35dp"
-        android:textSize="15sp"
-        android:layout_weight="0.01"
-        android:background="?android:attr/selectableItemBackground"/>
+            <ImageView
+                android:id="@+id/newsUrlToImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@+id/newsTitle" />
 
-    </LinearLayout>
+
+            <TextView
+                android:id="@+id/newsTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:fontFamily="sans-serif"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="News Title"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:textColor="@color/colorPrimary"
+                android:layout_above="@+id/newsDescription"
+                android:layout_alignParentStart="true" />
+
+            <TextView
+                android:id="@+id/newsPublishedAt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentStart="true"
+                android:fontFamily="serif-monospace"
+                android:paddingLeft="10dp"
+                android:textColor="#008000"
+                tools:text="PUBLISHED AT" />
+
+            <TextView
+                android:id="@+id/newsDescription"
+                android:layout_width="100dp"
+                android:textSize="15sp"
+                android:layout_height="100dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center_vertical|center"
+                android:layout_marginBottom="38dp"
+                android:layout_weight="1"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:gravity="fill_horizontal"
+                tools:text="News Description"
+                android:layout_alignParentStart="true" />
+
+        </RelativeLayout>
+
+    </android.support.v7.widget.CardView>
+
+</LinearLayout>

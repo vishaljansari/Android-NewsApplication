@@ -1,48 +1,42 @@
 package com.example.vishal.newsapp;
 
 import android.content.Context;
-import android.graphics.Typeface;
+import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.vishal.newsapp.Database.NewsItem;
-
-import java.util.ArrayList;
-
+import com.example.vishal.newsapp.Database.Contract;
+import com.squareup.picasso.Picasso;
 
 
 /**
  * Created by VISHAL on 6/24/2017.
  */
 
-public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemHolder> {
+public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemHolder>{
 
 
     ItemClickListener listener;
-    private String[] mainNewsData;
-    private ArrayList<NewsItem> newsArrayList;
+    private Cursor cursor;
+    private Context context;
 
-    public NewsAdapter(ArrayList<NewsItem> newsArrayList, ItemClickListener listener ) {
-        this.newsArrayList = newsArrayList;
+    NewsAdapter(Cursor cursor, ItemClickListener listener)
+    {
+        this.cursor=cursor;
         this.listener = listener;
     }
 
-    public NewsAdapter(ArrayList<NewsItem> newsList) {
-        this.newsArrayList = newsList;
-    }
-
     public interface ItemClickListener {
-        void onItemClick(int clickedItemIndex);
+        void onItemClick(Cursor cursor, int clickedItemIndex);
     }
 
     @Override
-    public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public ItemHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-
-        Context context = parent.getContext();
+        context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         boolean shouldAttachToParentImmediately = false;
 
@@ -52,47 +46,58 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ItemHolder> {
     }
 
     @Override
-    public void onBindViewHolder(ItemHolder holder, int position) {
+       public void onBindViewHolder(ItemHolder holder, final int position) {
 
-        NewsItem newsItem = newsArrayList.get(position);
-
-        holder.newsTitle.setText("TITLE: " +newsItem.getTitle());
-        holder.newsDescription.setText("DESCRIPTION: " +newsItem.getDescription());
-        holder.newsPublishedAt.setText("PUBLISHED AT: " +newsItem.getPublishedAt());
+        holder.bind(position);
     }
 
     @Override
     public int getItemCount() {
-        return newsArrayList.size() ;
+        return cursor.getCount() ;
     }
 
      class ItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        public TextView newsTitle;
-        public TextView newsDescription;
-        public TextView newsPublishedAt;
+          TextView newsTitle;
+          TextView newsDescription;
+          TextView newsPublishedAt;
+          TextView newsUrl;
+          ImageView newsUrlToImage;
+          TextView newsAuthor;
+
 
         public ItemHolder(View itemView) {
             super(itemView);
 
-
-            newsTitle = (TextView) itemView.findViewById(R.id.newsTitle);
-            newsTitle.setTypeface(null, Typeface.BOLD);
-            newsDescription = (TextView) itemView.findViewById(R.id.newsDescription);
-            newsPublishedAt = (TextView) itemView.findViewById(R.id.newsPublishedAt);
-
+            newsTitle = itemView.findViewById(R.id.newsTitle);
+            newsDescription =itemView.findViewById(R.id.newsDescription);
+            newsPublishedAt = itemView.findViewById(R.id.newsPublishedAt);
+            newsUrlToImage = itemView.findViewById(R.id.newsUrlToImage);
             itemView.setOnClickListener(this);
         }
+
+
+
+        public void bind(int position)
+        {
+            cursor.moveToPosition(position);
+
+            // USED PICASO API TO LOAD THE IMAGE FROM THE URL TO IMAGE LINK.
+
+            newsTitle.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWSFEED.COLUMN_TITLE)));
+            newsDescription.setText(cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWSFEED.COLUMN_DESCRIPTION)));
+            newsPublishedAt.setText("PUBLISHED AT: "+cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWSFEED.COLUMN_PUBLISHED_AT)));
+            String urlToImage = cursor.getString(cursor.getColumnIndex(Contract.TABLE_NEWSFEED.COLUMN_URL_TO_IMAGE));
+            Picasso.with(context).load(urlToImage).into(newsUrlToImage);
+
+        }
+
 
         @Override
         public void onClick(View v) {
             int position = getAdapterPosition();
-            listener.onItemClick(position);
+            listener.onItemClick(cursor,position);
         }
     }
-
-    public void setNewsData(String[] newsData) {
-        mainNewsData = newsData;
-        notifyDataSetChanged();
-    }
 }
+

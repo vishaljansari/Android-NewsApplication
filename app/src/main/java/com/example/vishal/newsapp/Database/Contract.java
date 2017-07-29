@@ -8,10 +8,13 @@ import android.provider.BaseColumns;
 
 public class Contract {
 
+    // Instantiated table name and appropriate columns based on NEWS API .
+
     public static class TABLE_NEWSFEED implements BaseColumns{
 
         public static final String TABLE_NAME = "newsitems";
 
+        public  static final String COLUMN_ID = "id";
         public static final String COLUMN_AUTHOR = "author";
         public static final String COLUMN_TITLE = "title";
         public static final String COLUMN_DESCRIPTION = "description";
